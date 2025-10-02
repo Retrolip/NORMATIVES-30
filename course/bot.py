@@ -14,34 +14,27 @@ django.setup()
 
 from course.models import Course
 
-# API_KEY = "http://127.0.0.1:8000/api/course/"
-TOKEN = "8022931974:AAEH0C10dqGGlEvFochjb6dgBj4jVQN30Dk"
+API_KEY = "http://127.0.0.1:8000/api/course/"
+TOKEN = "..."
 
 bot = Bot(TOKEN)
 dp = Dispatcher()
 
-# conn = pg.connect(
-#     dbname="postgres",
-#     user="postgres",
-#     password="201621",
-#     host="localhost",
-#     port="5432"
-# )
-# cursor = conn.cursor()
 
-@sync_to_async
-def get_courses():
-    return list(Course.objects.all())
+#
+# @sync_to_async
+# def get_courses():
+#     return list(Course.objects.all())
 
-# async def get_courses():
-#     async with aiohttp.ClientSession() as session:
-#         async with session.get(f"{API_KEY}") as response:
-#             return await response.json()
+async def get_courses():
+    async with aiohttp.ClientSession() as session:
+        async with session.get(f"{API_KEY}") as response:
+            return await response.json()
+
 
 @dp.message(CommandStart())
 async def cmd_start(message: types.Message):
-    # cursor.execute("SELECT title, price FROM course_course;")
-    # infos = cursor.fetchall()
+
     infos = await get_courses()
 
     print(infos)

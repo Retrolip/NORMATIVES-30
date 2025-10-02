@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'course',
+    'rest_framework',
+    'drf_spectacular',
+    'django_filters'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,7 +82,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "suhaylxd2019Z",
+        "PASSWORD": "...",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -125,3 +129,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter'
+    ]
+
+}
