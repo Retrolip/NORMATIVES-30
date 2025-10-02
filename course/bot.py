@@ -21,21 +21,16 @@ bot = Bot(TOKEN)
 dp = Dispatcher()
 
 
-#
-# @sync_to_async
-# def get_courses():
-#     return list(Course.objects.all())
 
-async def get_courses():
+async def get_courses(title):
     async with aiohttp.ClientSession() as session:
-        async with session.get(f"{API_KEY}") as response:
+        async with session.get(f"{API_KEY}?title={title}") as response:
             return await response.json()
-
 
 @dp.message(CommandStart())
 async def cmd_start(message: types.Message):
 
-    infos = await get_courses()
+    infos = await get_courses("front")
 
     print(infos)
 
